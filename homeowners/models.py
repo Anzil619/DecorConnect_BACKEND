@@ -53,6 +53,7 @@ class CustomUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_google = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
     
 
     

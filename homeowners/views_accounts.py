@@ -26,7 +26,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class UserRegistration(APIView):
     def post(self,request):
         email = request.data.get('email')
-        print(email)
+        print(email)        
         password = request.data.get('password')
 
         serializer = UserRegisterSerializer(data = request.data)
@@ -46,7 +46,6 @@ class UserRegistration(APIView):
                 'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
                 'token' : default_token_generator.make_token(user),
                 'site' : current_site
-
             })
             to_email = email
             send_email = EmailMessage(mail_subject,message,to=[to_email])
@@ -133,3 +132,71 @@ def create_jwt_pair_tokens(user):
         "access_token": access_token,
         "refresh_token": refresh_token,
     }
+
+
+class ForgotPassword(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+
+        if CustomUser.objects.filter(email=email).exists():
+            user = CustomUser.objects.get(email__exact=email)
+            current_site = get_current_site(request)
+            mail_subject = 'Click this link to change your password'
+            message = render_to_string('user/forgotpassword.html',
+            {
+                'user' : user,
+                'domain' : current_site,
+                'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
+                'token' : default_token_generator.make_token(user),
+                'site' : current_site
+            })
+
+            to_email = email
+            send_email = EmailMessage(mail_subject,message,to=[to_email])
+            send_email.send()
+
+            return Response(
+                data={
+                    'message': 'verification email has been sent to your email address',
+                    'user_id': user.id,
+                },
+                status=status.HTTP_200_OK
+            )
+
+        else:   
+            return Response(
+                data={'message': 'No account found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+
+            
+
+@api_view(['GET'])
+def reset_validate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = CustomUser._default_manager.get(pk=uid)
+    except (TypeError, ValueError, CustomUser.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+
+        return HttpResponseRedirect(f'{"http://localhost:5173/"}resetpassword/')
+
+            
+
+class ResetPassword(APIView):
+    def post(self, request, format=None):
+        str_user_id = request.data.get('user_id')
+        uid = int(str_user_id)
+        password = request.data.get('password')
+
+        if uid:
+            user = CustomUser.objects.get(id=uid)
+            user.set_password(password)
+            user.save()
+            return Response(data={'message': 'Password reset succesfully'}, status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_404_NOT_FOUND)
+

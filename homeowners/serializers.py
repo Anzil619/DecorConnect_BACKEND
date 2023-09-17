@@ -25,7 +25,9 @@ class UserGoogleSerializer(serializers.ModelSerializer):
             'password' : {'write_only' : True}
         }
 
-        
+
+
+                
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -46,3 +48,10 @@ class myTokenObtainPairSerializer(TokenObtainPairSerializer):
         
 
         return token
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+        
