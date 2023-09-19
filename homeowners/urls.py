@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/', UserRegistration.as_view(),name = 'register'),
     path('googlehomeowner/', GoogleHomeowner.as_view(),name = 'googlehomeowner'),
     path('forgotpassword/', ForgotPassword.as_view(),name = 'googlehomeowner'),
+    path('firmlist/', FirmsList.as_view(),name = 'firmlist'),
     path('userinfo/<int:pk>/', SingleUserInfo.as_view(),name = 'userinfo'),
      path('reset-validate/<uidb64>/<token> ',
          views_accounts.reset_validate, name='reset_validate'),

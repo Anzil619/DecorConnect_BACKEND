@@ -1,4 +1,6 @@
+from professionals.models import FirmInfo
 from .models import CustomUser
+from professionals.models import Address
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
@@ -55,3 +57,16 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = '__all__'
         
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+
+class FirmsListSerializer(serializers.ModelSerializer):
+    address = AddressSerializer()
+    class Meta:
+        model = FirmInfo
+        fields = '__all__'
+
