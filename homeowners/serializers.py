@@ -1,10 +1,10 @@
 from professionals.models import FirmInfo
 from .models import CustomUser
-from professionals.models import Address
+from professionals.models import Address,Project,ProjectImages
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
-
+from professionals.serializers import ProjectSerializer,ProjectImageSerializer
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,6 +47,7 @@ class myTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email  # type: ignore
         token['role'] = user.role # type: ignore
         token['is_active'] = user.is_active
+        token['is_completed'] = user.is_completed  # type: ignore
         
 
         return token
@@ -64,8 +65,22 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProjectSerializers2(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+    def get_images(self, obj):
+        images_queryset = obj.projectimages_set.all()
+        images_serializer = ProjectImageSerializer(images_queryset, many=True)
+        return images_serializer.data
+
+    
 class FirmsListSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
+    project = ProjectSerializers2(many=True)
     class Meta:
         model = FirmInfo
         fields = '__all__'

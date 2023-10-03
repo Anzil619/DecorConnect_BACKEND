@@ -18,15 +18,7 @@ class FirmVerification(models.Model):
     gst_certificate = models.FileField(null=True,blank=True)
     insurance = models.FileField(null=True,blank=True)
 
-class ProjectImages(models.Model):
-    image = models.ImageField(upload_to='project_images/')
 
-    def __str__(self):
-        return self.image.name
-
-    class Meta:
-        verbose_name = 'Image'
-        verbose_name_plural = 'Images'
 
 
 
@@ -37,7 +29,18 @@ class Project(models.Model):
     project_description = models.TextField()
     cost = models.PositiveIntegerField()
     project_address = models.TextField()
-    images = models.ManyToManyField(ProjectImages,null=True,blank=True)
+    
+
+class ProjectImages(models.Model):
+    project = models.ForeignKey(Project,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='project_images/')
+
+    def __str__(self):
+        return self.image.name
+    
+    class Meta:
+        verbose_name = 'Image'
+        verbose_name_plural = 'Images'
 
 
     
@@ -52,8 +55,9 @@ class FirmInfo(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE,null=True,blank=True)
     awards = models.CharField(max_length=100,null=True, blank=True)
     verification = models.ForeignKey(FirmVerification, on_delete=models.CASCADE,null=True,blank=True)
-    project = models.ManyToManyField(Project,null=True,blank=True)
+    project = models.ManyToManyField(Project)
     
+
 
     
 

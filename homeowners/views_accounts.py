@@ -2,7 +2,7 @@ from django.shortcuts import HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from .models import CustomUser
-from .serializers import UserRegisterSerializer,myTokenObtainPairSerializer,UserGoogleSerializer
+from .serializers import UserRegisterSerializer,myTokenObtainPairSerializer,UserGoogleSerializer,UserInfoSerializer
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
-
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 
 
@@ -199,4 +199,9 @@ class ResetPassword(APIView):
             return Response(data={'message': 'Password reset succesfully'}, status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class UpdateUser(RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserInfoSerializer
 

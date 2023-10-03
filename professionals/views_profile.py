@@ -49,13 +49,11 @@ class CreateProject(ListCreateAPIView):
         firm_id = request.data.get('firm_id', None)
         firm_info = FirmInfo.objects.get(id=firm_id)
 
-        
         # Use the serializer to validate and create the main resource
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             firm_info.project.add(serializer.instance)
-            firm_info.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -64,7 +62,37 @@ class CreateProjectImages(ListCreateAPIView):
     serializer_class = ProjectImageSerializer
     queryset = ProjectImages.objects.all()
 
+    def post(self, request):
 
+        project_id = request.data.get('project_id')
+        form_data = {}
+        form_data['project'] = project_id
+        data = []
+        flag = True
+
+        print(request.FILES,"anzil")
+
+        for image in request.FILES.getlist('images'):
+            form_data['image'] = image
+            serializer = ProjectImageSerializer(data=form_data)
+            if serializer.is_valid():
+                serializer.save()
+                data.append(serializer.data)
+            else:
+                flag = False
+            
+        if flag:
+            return Response(data=data, status=status.HTTP_201_CREATED )
+        else:
+            return Response(data=[], status=status.HTTP_400_BAD_REQUEST) 
+
+     
+
+
+
+        
+        
+       
 
 
 
