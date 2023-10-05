@@ -1,5 +1,4 @@
 
-import logging
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
@@ -94,8 +93,7 @@ class FirmInfoSerializer(serializers.ModelSerializer):
         instance.cover_photo = validated_data.get('cover_photo', instance.cover_photo)
         instance.firm_description = validated_data.get('firm_description', instance.firm_description)
         instance.awards = validated_data.get('awards', instance.awards)
-        # Add other fields you want to update in a similar way
-
+        
 
         # Update or create the related Address  
         if address_data:

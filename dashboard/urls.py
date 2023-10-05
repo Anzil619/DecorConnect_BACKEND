@@ -12,4 +12,5 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('listuser/', ListUser.as_view(),name = 'listuser'),
     path('editdeleteuser/<int:pk>/', EditDeleteUser.as_view(),name = 'editdeleteuser'),
+    path('approvefirm/<int:pk>/', ApproveFirm.as_view(),name = 'approvefirm'),
 ]

@@ -6,6 +6,9 @@ from rest_framework_simplejwt.tokens import Token
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
+from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
+from professionals.models import FirmInfo
 
 
 
@@ -31,4 +34,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
-         
+class FirmUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FirmInfo
+        fields = '__all__'
+
+            

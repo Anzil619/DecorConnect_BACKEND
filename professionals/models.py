@@ -18,11 +18,6 @@ class FirmVerification(models.Model):
     gst_certificate = models.FileField(null=True,blank=True)
     insurance = models.FileField(null=True,blank=True)
 
-
-
-
-
-
 class Project(models.Model):
     project_name = models.CharField(max_length=50)
     year = models.PositiveSmallIntegerField()
@@ -45,6 +40,13 @@ class ProjectImages(models.Model):
 
     
 class FirmInfo(models.Model):
+    STATUS = [
+    ('pending','pending'),
+    ('approved','approved'),
+    ('rejected','rejected')
+]
+        
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     firm_name = models.CharField(max_length=50,null=True,blank=True)
     website = models.CharField(max_length=50,null=True,blank=True)
@@ -56,6 +58,7 @@ class FirmInfo(models.Model):
     awards = models.CharField(max_length=100,null=True, blank=True)
     verification = models.ForeignKey(FirmVerification, on_delete=models.CASCADE,null=True,blank=True)
     project = models.ManyToManyField(Project)
+    status = models.CharField(max_length=100,default='pending',choices=STATUS)
     
 
 
