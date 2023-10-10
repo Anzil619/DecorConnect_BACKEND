@@ -123,7 +123,8 @@ class ProjectImageSerializer(serializers.ModelSerializer):
 class EditFirmInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FirmInfo
-        fields = ['id','cover_photo','logo']
+        fields = ['id','cover_photo','logo','website','about']
+
 
 
 

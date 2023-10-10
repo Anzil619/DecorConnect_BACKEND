@@ -19,5 +19,7 @@ urlpatterns = [
     path('firmcompletion/<int:pk>/', Firm_Completion.as_view(), name='firmcompletion'), 
     path('firmverificationupdate/<int:pk>/', FirmVerificationUpdate.as_view(), name='firmverificationupdate'), 
     path('editfirminfo/<int:pk>/', EditFirmInfo.as_view(), name='editfirminfo'), 
+    path('editproject/<int:pk>/', EditProject.as_view(), name='editproject'), 
+    path('editdeleteprojectimages/<int:pk>/', EditDeleteProjectImages.as_view(), name='editdeleteprojectimages'), 
     
 ]

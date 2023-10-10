@@ -64,6 +64,7 @@ class CreateProjectImages(ListCreateAPIView):
     def post(self, request):
 
         project_id = request.data.get('project_id')
+        print(project_id,"mukham kaattu")
         form_data = {}
         form_data['project'] = project_id
         data = []
@@ -73,7 +74,7 @@ class CreateProjectImages(ListCreateAPIView):
 
         for image in request.FILES.getlist('images'):
             form_data['image'] = image
-            serializer = ProjectImageSerializer(data=form_data)
+            serializer = ProjectImageSerializer(data=form_data) # type: ignore
             if serializer.is_valid():
                 serializer.save()
                 data.append(serializer.data)
