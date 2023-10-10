@@ -56,12 +56,16 @@ class FirmVerificationSerializer(serializers.ModelSerializer):
         
         return instance
 
-
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
 
 
 class FirmInfoSerializer(serializers.ModelSerializer):
     address = AddressSerializer(required = False)  # Nested serializer for Address
     verification = FirmVerificationSerializer(required = False)  # Nested serializer for FirmVerification
+    project = ProjectSerializer(many=True, required = False)
 
     class Meta:
         model = FirmInfo
@@ -75,7 +79,6 @@ class FirmInfoSerializer(serializers.ModelSerializer):
         try:
             verification.gst_certificate = validated_data.get('gst_certificate',verification.gst_certificate)
             print(verification.gst_certificate,"anzil")
-             
             verification.owner_pan_card = validated_data.get('owner_pan_card',verification.owner_pan_card)
             verification.firm_liscense = validated_data.get('firm_liscense',verification.firm_liscense)
             verification.insurance = validated_data.get('insurance',verification.insurance)
@@ -105,10 +108,7 @@ class FirmInfoSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ProjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Project
-        fields = '__all__'
+
         
     
 class ProjectImageSerializer(serializers.ModelSerializer):
@@ -120,6 +120,10 @@ class ProjectImageSerializer(serializers.ModelSerializer):
 
 
 
+class EditFirmInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FirmInfo
+        fields = ['id','cover_photo','logo']
 
 
 

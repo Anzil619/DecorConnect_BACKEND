@@ -37,6 +37,8 @@ class CustomUserManager(BaseUserManager):
         
 
 
+
+
 class CustomUser(AbstractBaseUser):
 
     ROLE_CHOICES = [
@@ -54,9 +56,8 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_google = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
-    
-
-    
+    profile_photo = models.ImageField(upload_to='user_profile_photo/',null=True,blank=True)
+    cover_photo = models.ImageField(upload_to='user_cover_photo/',null=True,blank=True)
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
@@ -71,3 +72,12 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
+
+
+class UserAddress(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    address_line = models.TextField()
+    phone = models.PositiveIntegerField()

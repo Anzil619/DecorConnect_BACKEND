@@ -1,7 +1,6 @@
 from django.db import models
 from homeowners.models import CustomUser
 
-
 class Address(models.Model):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
@@ -10,13 +9,13 @@ class Address(models.Model):
     phone = models.PositiveIntegerField()
 
 
-
 class FirmVerification(models.Model):
     owner_name = models.CharField(max_length=50)
     owner_pan_card = models.FileField(null=True,blank=True)
     firm_liscense = models.FileField(null=True,blank=True)
     gst_certificate = models.FileField(null=True,blank=True)
     insurance = models.FileField(null=True,blank=True)
+
 
 class Project(models.Model):
     project_name = models.CharField(max_length=50)

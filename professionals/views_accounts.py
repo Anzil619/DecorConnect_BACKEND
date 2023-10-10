@@ -41,7 +41,7 @@ class ProfessionalRegister(CreateAPIView):
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()
+            send_email.send()   
 
             response_data = {
                 'status': 'success',

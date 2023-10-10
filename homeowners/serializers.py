@@ -1,6 +1,6 @@
 
 from professionals.models import FirmInfo
-from .models import CustomUser
+from .models import CustomUser,UserAddress
 from professionals.models import Address,Project,ProjectImages
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -68,7 +68,7 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class ProjectSerializers2(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
-
+    
     class Meta:
         model = Project
         fields = '__all__'
@@ -87,3 +87,8 @@ class FirmsListSerializer(serializers.ModelSerializer):
         model = FirmInfo
         fields = '__all__'
 
+
+class UserAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAddress
+        fields = '__all__'
