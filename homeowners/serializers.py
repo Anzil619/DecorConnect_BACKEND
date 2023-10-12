@@ -1,11 +1,11 @@
 
-from professionals.models import FirmInfo
+from professionals.models import FirmInfo,Review
 from .models import CustomUser,UserAddress
 from professionals.models import Address,Project,ProjectImages
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
-from professionals.serializers import ProjectSerializer,ProjectImageSerializer,FirmVerificationSerializer
+from professionals.serializers import ProjectSerializer,ProjectImageSerializer,FirmVerificationSerializer,ReviewSerializer
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -83,12 +83,23 @@ class FirmsListSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
     project = ProjectSerializers2(many=True)
     verification = FirmVerificationSerializer()
+    reviews = serializers.SerializerMethodField()
+    
+    
     class Meta:
         model = FirmInfo
         fields = '__all__'
 
+    def get_reviews(self, obj):
+        # Fetch reviews for the given firm (obj)
+        reviews = Review.objects.filter(firm=obj)
+        return ReviewSerializer(reviews, many=True).data
+
 
 class UserAddressSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = UserAddress
         fields = '__all__'
+
+

@@ -62,7 +62,12 @@ class FirmInfo(models.Model):
 
 
     
-
+class Review(models.Model):
+    firm = models.ForeignKey(FirmInfo,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 

@@ -1,6 +1,6 @@
-from rest_framework.generics import UpdateAPIView,RetrieveUpdateDestroyAPIView
-from .models import FirmInfo,Project,ProjectImages
-from .serializers import EditFirmInfoSerializer,ProjectSerializer,ProjectImageSerializer
+from rest_framework.generics import UpdateAPIView,RetrieveUpdateDestroyAPIView,CreateAPIView
+from .models import FirmInfo,Project,ProjectImages,Review
+from .serializers import EditFirmInfoSerializer,ProjectSerializer,ProjectImageSerializer,CreateReviewSerializer
 
 class EditFirmInfo(UpdateAPIView):
     queryset = FirmInfo.objects.all()
@@ -13,3 +13,12 @@ class EditProject(UpdateAPIView):
 class EditDeleteProjectImages(RetrieveUpdateDestroyAPIView):
     queryset = ProjectImages.objects.all()
     serializer_class = ProjectImageSerializer
+
+class CreateReview(CreateAPIView):
+    serializer_class = CreateReviewSerializer
+    queryset = Review.objects.all()
+
+class EditReview(RetrieveUpdateDestroyAPIView):
+    serializer_class = CreateReviewSerializer
+    queryset = Review.objects.all()
+    

@@ -20,6 +20,8 @@ urlpatterns = [
     path('firmverificationupdate/<int:pk>/', FirmVerificationUpdate.as_view(), name='firmverificationupdate'), 
     path('editfirminfo/<int:pk>/', EditFirmInfo.as_view(), name='editfirminfo'), 
     path('editproject/<int:pk>/', EditProject.as_view(), name='editproject'), 
-    path('editdeleteprojectimages/<int:pk>/', EditDeleteProjectImages.as_view(), name='editdeleteprojectimages'), 
+    path('editdeleteprojectimages/<int:pk>/', EditDeleteProjectImages.as_view(), name='editdeleteprojectimages'),
+    path('createreview/', CreateReview.as_view() , name='createreview' ) ,
+    path('editreview/<int:pk>/', EditReview.as_view() , name='editreview' ) ,
     
 ]

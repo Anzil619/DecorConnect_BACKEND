@@ -2,9 +2,8 @@
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Address, FirmInfo, FirmVerification
+from .models import Address, FirmInfo, FirmVerification,Review,ProjectImages,Project
 from homeowners.models import CustomUser
-from .models import Address, Project, ProjectImages
 
 
 
@@ -126,5 +125,20 @@ class EditFirmInfoSerializer(serializers.ModelSerializer):
         fields = ['id','cover_photo','logo','website','about']
 
 
+class ReviewUserInfo(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id','name','profile_photo']
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    user = ReviewUserInfo(required = False)
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+class CreateReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
