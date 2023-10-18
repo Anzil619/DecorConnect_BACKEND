@@ -1,11 +1,11 @@
 
 from professionals.models import FirmInfo,Review
-from .models import CustomUser,UserAddress
+from .models import CustomUser,UserAddress,Posts
 from professionals.models import Address,Project,ProjectImages
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
-from professionals.serializers import ProjectSerializer,ProjectImageSerializer,FirmVerificationSerializer,ReviewSerializer
+from professionals.serializers import ProjectSerializer,ProjectImageSerializer,FirmVerificationSerializer,ReviewSerializer,ReviewUserInfo
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -103,3 +103,24 @@ class UserAddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ListFirmNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FirmInfo
+        fields = ['id','firm_name','status','cover_photo']
+
+
+
+
+class ListPostSerializer(serializers.ModelSerializer):
+    user = ReviewUserInfo()
+    
+    class Meta:
+        model = Posts
+        fields = '__all__'
+
+
+
+class CreatePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Posts
+        fields = '__all__'

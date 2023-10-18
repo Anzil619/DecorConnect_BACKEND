@@ -22,9 +22,13 @@ urlpatterns = [
     path('getproject/<int:pk>/', GetProject.as_view(),name = 'getproject'),
     path('userinfo/<int:pk>/', SingleUserInfo.as_view(),name = 'userinfo'),
     path('singlefirminfo/<int:pk>/', SingleFirmInfo.as_view(),name = 'singlefirminfo'),
+    path('getuserpost/<int:user_id>/', GetUserPosts.as_view(),name = 'getuserpost'),
+    path('listpost/', ListPost.as_view(),name = 'listpost'),
+    path('createpost/', CreatePost.as_view(),name = 'createpost'),
+    path('suggestionfirm/', SuggestionFirm.as_view(),name = 'suggestionfirm'),
      path('reset-validate/<uidb64>/<token> ',
          views_accounts.reset_validate, name='reset_validate'),
     path('reset-password/', ResetPassword.as_view()),
     path('activate/<uidb64>/<token> ', views_accounts.activate, name='activate'),
-
+    
 ]

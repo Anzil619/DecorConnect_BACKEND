@@ -116,7 +116,6 @@ class GoogleHomeowner(APIView):
 def create_jwt_pair_tokens(user):
     
     refresh = RefreshToken.for_user(user)
-
     refresh['email'] = user.email
     refresh['id'] = user.id
     refresh['name'] = user.name
