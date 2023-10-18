@@ -65,3 +65,4 @@ class GetUserPosts(ListAPIView):
         return Posts.objects.filter(user_id=user_id)
 
 
+
