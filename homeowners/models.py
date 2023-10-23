@@ -59,7 +59,7 @@ class CustomUser(AbstractBaseUser):
     profile_photo = models.ImageField(upload_to='user_profile_photo/',null=True,blank=True)
     cover_photo = models.ImageField(upload_to='user_cover_photo/',null=True,blank=True)
     objects = CustomUserManager()
-
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['role']
 
@@ -101,7 +101,7 @@ class Like(models.Model):
     class Meta:
         unique_together = ['user', 'post']  
 
-    
+
     def __str__(self):
         return f'{self.user} likes {self.post}'
 

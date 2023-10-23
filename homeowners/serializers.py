@@ -1,11 +1,12 @@
 
 from professionals.models import FirmInfo,Review
-from .models import CustomUser,UserAddress,Posts
-from professionals.models import Address,Project,ProjectImages
+from .models import CustomUser,UserAddress,Posts,Like,Comment
+from professionals.models import Address,Project,ProjectImages,FirmInfo
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import ValidationError
 from professionals.serializers import ProjectSerializer,ProjectImageSerializer,FirmVerificationSerializer,ReviewSerializer,ReviewUserInfo
+
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,9 +56,12 @@ class myTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = CustomUser
         fields = '__all__'
+
+        
         
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -111,16 +115,53 @@ class ListFirmNameSerializer(serializers.ModelSerializer):
 
 
 
-class ListPostSerializer(serializers.ModelSerializer):
-    user = ReviewUserInfo()
-    
-    class Meta:
-        model = Posts
-        fields = '__all__'
-
-
 
 class CreatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
         fields = '__all__'
+
+
+class CreateLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source='user.name', read_only=True)
+    user_profile_photo = serializers.ImageField(source='user.profile_photo', read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+
+class ListPostSerializer(serializers.ModelSerializer):
+    user = ReviewUserInfo()
+    like = serializers.SerializerMethodField()
+    like_count = serializers.SerializerMethodField()
+    comments = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Posts
+        fields = '__all__'
+
+    def get_like(self, obj):
+        like = Like.objects.filter(post = obj)
+        return CreateLikeSerializer(like, many=True).data
+    
+    def get_like_count(self, obj):
+        return obj.like_set.count()
+    
+    def get_comments(self,obj):
+        comments = Comment.objects.filter(post = obj)
+        return CommentSerializer(comments, many=True).data
+    
+    def get_comments_count(self, obj):
+        return obj.comment_set.count()
+    
+
+
+

@@ -38,4 +38,4 @@ class Chatlist(ListCreateAPIView):
         sender_id = self.kwargs.get('sender_id')
         return ChatList.objects.filter(sender_id=sender_id)
 
-        
+    

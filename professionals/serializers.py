@@ -142,3 +142,9 @@ class CreateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+
+
+class UserFirmInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FirmInfo
+        fields = '__all__'

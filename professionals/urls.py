@@ -23,5 +23,6 @@ urlpatterns = [
     path('editdeleteprojectimages/<int:pk>/', EditDeleteProjectImages.as_view(), name='editdeleteprojectimages'),
     path('createreview/', CreateReview.as_view() , name='createreview' ) ,
     path('editreview/<int:pk>/', EditReview.as_view() , name='editreview' ) ,
+    path('fetchUserfirm/<int:user_id>/', FetchUserFirm.as_view() , name='fetchUserfirm' ) ,
     
 ]
