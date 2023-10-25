@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from decouple import config
 from pathlib import Path
 
@@ -100,8 +101,6 @@ TEMPLATES = [
 
 ASGI_APPLICATION = "DecorConnect.asgi.application"
 WSGI_APPLICATION = 'DecorConnect.wsgi.application'
-
-
 AUTH_USER_MODEL = 'homeowners.CustomUser'
 
 # Database
@@ -113,6 +112,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES["default"] = dj_database_url.parse("postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect")
+
+# postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect
+
 
 
 # Password validation
@@ -139,9 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
 USE_TZ = True
 
@@ -165,19 +167,19 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('localhost', 6379)],
+            "hosts": [config('redis')],
         },
     },
 }
 
 
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER =config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
 
 
