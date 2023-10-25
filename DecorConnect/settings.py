@@ -106,12 +106,12 @@ AUTH_USER_MODEL = 'homeowners.CustomUser'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES["default"] = dj_database_url.parse("postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect")
 
