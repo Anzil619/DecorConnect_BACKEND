@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-8@4*i1_v07yihym_vqk)=x(r22m3^#3%5pv23h0ujoiown37_6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -100,7 +100,7 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = "DecorConnect.asgi.application"
-WSGI_APPLICATION = 'DecorConnect.wsgi.application'
+# WSGI_APPLICATION = 'DecorConnect.wsgi.application'
 AUTH_USER_MODEL = 'homeowners.CustomUser'
 
 # Database
