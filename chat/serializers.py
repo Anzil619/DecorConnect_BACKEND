@@ -10,7 +10,7 @@ class MessageSerializer(ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ['message', 'sender_email']
+        fields = ['message', 'sender_email','timestamp']
 
 
 class ChatListSerializer(serializers.ModelSerializer):

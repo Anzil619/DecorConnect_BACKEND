@@ -113,7 +113,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.parse("postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect")
+# DATABASES["default"] = dj_database_url.parse("postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect")
 
 # postgres://anzil:qKuDf5ZNP2flZSSCHtPJm86DHK8r8bsy@dpg-ckr4l6ca4fmc73av893g-a.singapore-postgres.render.com/decorconnect
 
