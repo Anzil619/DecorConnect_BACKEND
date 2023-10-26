@@ -66,6 +66,7 @@ class FirmInfoSerializer(serializers.ModelSerializer):
     verification = FirmVerificationSerializer(required = False)  # Nested serializer for FirmVerification
     project = ProjectSerializer(many=True, required = False)
 
+
     class Meta:
         model = FirmInfo
         fields = '__all__' 
