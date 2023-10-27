@@ -108,7 +108,7 @@ class Like(models.Model):
 
 
 
-class Comment(models.Model):
+class Comment(models.Model):    
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
     text = models.TextField()

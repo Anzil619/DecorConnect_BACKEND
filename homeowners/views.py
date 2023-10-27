@@ -105,3 +105,4 @@ class DeleteComment(DestroyAPIView):
 class DeleteEditPost(RetrieveUpdateDestroyAPIView):
     queryset = Posts.objects.all()
     serializer_class = CreatePostSerializer
+

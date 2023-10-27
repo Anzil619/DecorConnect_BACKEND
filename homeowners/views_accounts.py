@@ -70,13 +70,13 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         message = "Congrats, You have been succesfully registered"
-        redirect_url =  'http://localhost:5173/login/' + '?message=' + message + '?token' + token
+        redirect_url =  'https://decor-connects.vercel.app/login/' + '?message=' + message + '?token' + token
     else:
         message = 'Invalid activation link'
-        redirect_url = 'http://localhost:5173/signup/' + '?message=' + message
-    
+        redirect_url = 'https://decor-connects.vercel.app/signup/' + '?message=' + message
     
     return HttpResponseRedirect(redirect_url)
+
 
 
 class GoogleHomeowner(APIView):
