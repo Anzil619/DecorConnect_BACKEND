@@ -14,6 +14,9 @@ import os
 import dj_database_url
 from decouple import config
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
     'dashboard',
     'channels',
     'chat',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -182,4 +186,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 
+
+cloudinary.config( 
+  cloud_name = "dddnhzhfk", 
+  api_key = "441367976627735", 
+  api_secret = "z51uZmWBKz4Ige2IEpFvK5mvMsM" 
+)
 
