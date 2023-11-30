@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'channels',
     'chat',
     'cloudinary',
+    'cloudinary_storage',
+
 ]
 
 MIDDLEWARE = [
@@ -187,9 +190,10 @@ EMAIL_USE_TLS = True
 
 
 
-cloudinary.config( 
-  cloud_name = "dddnhzhfk", 
-  api_key = "441367976627735", 
-  api_secret = "z51uZmWBKz4Ige2IEpFvK5mvMsM" 
-)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dddnhzhfk',
+    'API_KEY': '441367976627735',
+    'API_SECRET': 'z51uZmWBKz4Ige2IEpFvK5mvMsM'
+}
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
